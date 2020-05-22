@@ -8,13 +8,10 @@ const app = express();
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// Apply the GraphQL middleware and set the path to /api
 server.applyMiddleware({ app, path: '/api' });
 
 app.get('/', (req, res) => res.send('Notedly-api'));
 
 const port = process.env.PORT || 4000;
-
-
 
 app.listen(4000, () => console.log(`Server running at ${port}`));
