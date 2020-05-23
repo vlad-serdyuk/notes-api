@@ -1,3 +1,6 @@
+const notes = require('../models/Note');
+
 module.exports = {
-  notes: () => 'Hello world!'
+  note: (parent, { id }) => notes.find(note => note.id === id),
+  notes: () => notes,
 };
