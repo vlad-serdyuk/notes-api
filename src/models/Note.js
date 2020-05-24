@@ -1,4 +1,21 @@
-module.exports = [
-  { id: '1', content: 'The first note', author: 'Vlad' },
-  { id: '2', content: 'The second note', author: 'Vlad' },
-];
+const mongoose = require('mongoose');
+
+const noteSchema = new mongoose.Schema(
+  {
+    content: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+const Note = mongoose.model('Note', noteSchema);
+
+module.exports = Note;

@@ -1,14 +1,7 @@
-const notes = require('../models/Note');
+const NoteService = require('../services/note-service');
 
 module.exports = {
-  newNote: (parent, { content }) => {
-    let newNote = {
-      id: String(notes.length + 1),
-      content,
-      author: 'Vlad',
-    };
-
-    notes.push(newNote);
-    return newNote;
-  },
+  createNote: (parent, { content }) => NoteService.createNote({ content }),
+  updateNote: (parent, { content, id }) => NoteService.updateNote({ id, content }),
+  deleteNote: (parent, { id }) => NoteService.deleteNote(id),
 };

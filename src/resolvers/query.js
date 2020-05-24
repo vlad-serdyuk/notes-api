@@ -1,6 +1,6 @@
-const notes = require('../models/Note');
+const NoteService = require('../services/note-service');
 
 module.exports = {
-  note: (parent, { id }) => notes.find(note => note.id === id),
-  notes: () => notes,
+  note: (parent, { id }) => NoteService.getNoteById(id),
+  notes: () => NoteService.getNotes(),
 };
