@@ -5,12 +5,21 @@ const db = require('./db');
 const config = require('./config');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
+const UserService = require('./services/user-service');
 
-db.connect(config.databaseHost);
+db.connect(config.dbHost);
 
 const app = express();
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    const token = req.headers.authorization;
+    const user = UserService.getUser(token);
+    return { user };
+  },
+});
 
 server.applyMiddleware({ app, path: '/api' });
 

@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 module.exports = {
-  connect: databaseHost => {
+  connect: dbHost => {
     // Use the Mongo driver's updated URL string parser
     mongoose.set('useNewUrlParser', true);
     // Use `findOneAndUpdate()` in place of findAndModify()
@@ -12,7 +12,7 @@ module.exports = {
     // Use the new server discovery & monitoring engine
     mongoose.set('useUnifiedTopology', true);
     // Connect to the DB
-    mongoose.connect(databaseHost);
+    mongoose.connect(dbHost);
     // Log an error if we fail to connect
     mongoose.connection.on('error', err => {
       console.error(err);
