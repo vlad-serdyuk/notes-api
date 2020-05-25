@@ -19,11 +19,11 @@ module.exports = {
 
       const user = await User.create({
         username,
-        email,
+        normalizedEmail,
         avatar,
         password: hashed,
       });
-      
+
       return jwt.sign({ id: user._id }, config.jwtToken);
     } catch (err) {
       throw new Error('Error creating account');
@@ -60,5 +60,8 @@ module.exports = {
         throw new Error('Session invalid');
       }
     }
+  },
+  me: async ({ user }) => {
+    return await User.findById(user.id);
   },
 };

@@ -6,7 +6,7 @@ module.exports = gql`
   type Note {
     id: ID!
     content: String!
-    author: String!
+    author: User!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -22,6 +22,7 @@ module.exports = gql`
   type Query {
     note(id: ID!): Note!
     notes: [Note!]!
+    me: User!
   }
 
   type Mutation {

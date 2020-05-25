@@ -14,8 +14,9 @@ const app = express();
 const server = new ApolloServer({ 
   typeDefs,
   resolvers,
-  context: ({ req }) => {
+  context: async ({ req }) => {
     const token = req.headers.authorization;
+    console.log(token);
     const user = UserService.getUser(token);
     return { user };
   },
