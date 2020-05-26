@@ -61,7 +61,13 @@ module.exports = {
       }
     }
   },
-  me: async ({ user }) => {
+  getMe: async ({ user }) => {   
     return await User.findById(user.id);
+  },
+  getUserByUsername: async ({ username }) => {   
+    return await User.findOne({ username });
+  },
+  getUsers: async () => {
+    return await User.find({});
   },
 };
