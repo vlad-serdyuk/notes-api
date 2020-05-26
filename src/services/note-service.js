@@ -36,15 +36,39 @@ module.exports = {
     }
   },
   updateNote: async ({ id, content, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to update a note');
+    }
+
     try {
-      return Note.findOneAndUpdate({ _id: id }, { $set: { content } }, { new: true });
+      const note = Note.findById(id);
+
+      if (note && String(note.author) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to update this note');
+      }
+
+      return await Note.findByIdAndUpdate(
+        { _id: id },
+        { $set: { content } },
+        { new: true },
+      );
     } catch (err) {
       console.log(err);
     }
   },
   deleteNote: async ({ id, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to delete a note');
+    }
+
     try {
-      Note.findOneAndRemove({ _id: id });
+      const note = await Note.findById(id);
+
+      if (note && String(note.author) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to delete this note');
+      }
+
+      await note.remove();
       return true;
     } catch (err) {
       console.log(err);
