@@ -75,4 +75,54 @@ module.exports = {
       return false;
     }
   },
+  toggleFavorite: async ({ id, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to toggle a note');
+    }
+
+    try {
+      const note = await Note.findById(id);
+      const hasUser = note.favoritedBy.indexOf(user.id);
+
+      if (hasUser >= 0) {
+        return await Note.findByIdAndUpdate(
+          id,
+          {
+            $pull: {
+              favoritedBy: mongoose.Types.ObjectId(user.id)
+            },
+            $inc: {
+              favoriteCount: -1
+            }
+          },
+          {
+            new: true,
+          }
+        );
+      } else {
+        return await Note.findByIdAndUpdate(
+          id,
+          {
+            $push: {
+              favoritedBy: mongoose.Types.ObjectId(user.id)
+            },
+            $inc: {
+              favoriteCount: 1
+            }
+          },
+          {
+            new: true
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getNotesByUserId: async ({ id }) => {
+    return await Note.find({ author: id }).sort({ _id: -1 });
+  },
+  geFavoritesNotesByUserID: async ({ id }) => {
+    return await Note.find({ favoritedBy: id }).sort({ _id: -1 });
+  },
 };

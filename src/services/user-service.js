@@ -70,4 +70,10 @@ module.exports = {
   getUsers: async () => {
     return await User.find({});
   },
+  getAuthor: async ({ author }) => {
+    return await User.findById(author);
+  },
+  getAuthorByFavoritedBy: async ({ favoritedBy }) => {
+    return await User.find({ _id: { $in: favoritedBy } });
+  },
 };
