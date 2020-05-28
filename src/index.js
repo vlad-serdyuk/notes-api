@@ -1,4 +1,6 @@
 const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 
 const db = require('./db');
@@ -10,6 +12,9 @@ const UserService = require('./services/user-service');
 db.connect(config.dbHost);
 
 const app = express();
+
+app.use(helmet());
+app.use(cors());
 
 const server = new ApolloServer({ 
   typeDefs,
