@@ -125,4 +125,31 @@ module.exports = {
   geFavoritesNotesByUserID: async ({ id }) => {
     return await Note.find({ favoritedBy: id }).sort({ _id: -1 });
   },
+  getNotesFeed: async ({ cursor }) => {
+    const limit = 10;
+    let hasNextPage = false;
+
+    let cursorQuery = {};
+
+    if (cursor) {
+      cursorQuery = { _id: { $lt: cursor } };
+    }
+
+    let notes = await Note.find(cursorQuery)
+      .sort({ _id: 1 })
+      .limit(limit + 1);
+
+    if (note.length > limit) {
+      hasNextPage = true;
+      notes = notes.slice(0, -1);
+    }
+
+    const newCursor = notes[notes.length - 1]._id;
+
+    return {
+      notes,
+      hasNextPage,
+      cursor: newCursor,
+    };
+  },
 };
