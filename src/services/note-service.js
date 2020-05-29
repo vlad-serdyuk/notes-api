@@ -4,12 +4,14 @@ const {
   ForbiddenError,
 } = require('apollo-server-express');
 
+const { DB_NOTES_LIMIT, DB_NOTES_FEED_LIMIT } = require('../constants');
+
 const Note = require('../models/note');
 
 module.exports = {
   getNotes: async () => {
     try {
-      return Note.find();
+      return Note.find().limit(DB_NOTES_LIMIT);
     } catch (err) {
       console.log(err);
     }
@@ -126,7 +128,6 @@ module.exports = {
     return await Note.find({ favoritedBy: id }).sort({ _id: -1 });
   },
   getNotesFeed: async ({ cursor }) => {
-    const limit = 10;
     let hasNextPage = false;
 
     let cursorQuery = {};
@@ -137,9 +138,9 @@ module.exports = {
 
     let notes = await Note.find(cursorQuery)
       .sort({ _id: 1 })
-      .limit(limit + 1);
+      .limit(DB_NOTES_FEED_LIMIT + 1);
 
-    if (note.length > limit) {
+    if (note.length > DB_NOTES_FEED_LIMIT) {
       hasNextPage = true;
       notes = notes.slice(0, -1);
     }
