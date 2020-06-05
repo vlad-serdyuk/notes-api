@@ -140,7 +140,7 @@ module.exports = {
       .sort({ _id: 1 })
       .limit(DB_NOTES_FEED_LIMIT + 1);
 
-    if (note.length > DB_NOTES_FEED_LIMIT) {
+    if (notes.length > DB_NOTES_FEED_LIMIT) {
       hasNextPage = true;
       notes = notes.slice(0, -1);
     }
