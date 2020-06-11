@@ -16,10 +16,13 @@ module.exports = {
       
       const normalizedEmail = email.trim().toLowerCase();
       const avatar = gravatar(normalizedEmail);
+      
+      console.log({ hashed, username, normalizedEmail, avatar });
+      
 
       const user = await User.create({
         username,
-        normalizedEmail,
+        email: normalizedEmail,
         avatar,
         password: hashed,
       });
