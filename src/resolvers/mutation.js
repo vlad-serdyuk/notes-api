@@ -8,6 +8,6 @@ module.exports = {
 
   toggleFavorite: (parent, { id }, { user }) => NoteService.toggleFavorite({ id, user }),
 
-  signUp: (parent, { username, email, password }) => UserService.signUp({ username, email, password }),
-  signIn: (parent, { email, password }) => UserService.signIn({ email, password }),
+  signUp: (parent, { username, email, password }, { meta: { session } }) => UserService.signUp({ username, email, password, session }),
+  signIn: (parent, { email, password }, { meta: { session } }) => UserService.signIn({ email, password, session }),
 };

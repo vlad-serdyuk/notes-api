@@ -42,7 +42,7 @@ module.exports = gql`
     updateNote(id: ID!, content: String!): Note!
     deleteNote(id: ID!): Boolean!
     toggleFavorite(id: ID!): Note!
-    signUp(username: String!, email: String!, password: String!): String!
-    signIn(email: String!, password: String!): String!
+    signUp(username: String!, email: String!, password: String!): Boolean!
+    signIn(email: String!, password: String!): Boolean!
   }
 `;

@@ -10,7 +10,7 @@ const User = require('../models/user');
 const gravatar = require('../util/gravatar');
 
 module.exports = {
-  signUp: async ({ username, email, password }) => {
+  signUp: async ({ username, email, password, session }) => {
     try {
       const hashed = await bcrypt.hash(password, 10);
       
@@ -24,12 +24,15 @@ module.exports = {
         password: hashed,
       });
 
-      return jwt.sign({ id: user._id }, config.jwtToken);
+      const token = jwt.sign({ id: user._id }, config.jwtToken);
+      session.setToken(token);
+
+      return true;
     } catch (err) {
       throw new Error('Error creating account');
     }
   },
-  signIn: async ({ email, password }) => {
+  signIn: async ({ email, password, session }) => {
     try {
       if (email) {
         email = email.trim().toLowerCase();
@@ -47,7 +50,10 @@ module.exports = {
         throw new AuthenticationError('Error singin in 2');
       }
 
-      return jwt.sign({ id: user._id }, config.jwtToken);
+      const token = jwt.sign({ id: user._id }, config.jwtToken);
+      session.setToken(token);
+
+      return true;
     } catch (err) {
       throw new AuthenticationError('Error singin in');
     }
