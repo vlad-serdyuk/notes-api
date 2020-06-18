@@ -17,6 +17,7 @@ class Session {
       httpOnly: true,
       // use secure flag in production to send only via encrypted connections
       // secure: true,
+      // domain: 'example.com', //set your domain
     };
     
     this.response.cookie('jwt', token, cookieOptions);

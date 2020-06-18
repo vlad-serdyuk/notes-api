@@ -16,10 +16,15 @@ const UserService = require('./services/user-service');
 
 db.connect(config.dbHost);
 
+const corsOptions = {
+  origin: config.originUrl,
+  credentials: true,
+};
+
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(sessionMiddleware);
@@ -27,19 +32,20 @@ app.use(sessionMiddleware);
 const server = new ApolloServer({ 
   typeDefs,
   resolvers,
+  cors: false,
   validationRules: [
     depthLimit(GRAPHQL_DEPTH_LIMIT),
     createComplexityLimitRule(GRAPGQL_COPLEXITY_LIMIT_RULE),
   ],
   context: async ({ req }) => {
-    const token = req.session.getToken();
+    const token = req.session.getToken();    
     const user = UserService.getUser(token);
 
     return { user, meta: { session: req.session } };
   },
 });
 
-server.applyMiddleware({ app, path: '/api' });
+server.applyMiddleware({ app, path: '/api', cors: false });
 
 app.get('/', (req, res) => res.send('Notedly-api'));
 

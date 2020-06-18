@@ -10,4 +10,5 @@ module.exports = {
   port: process.env.PORT || 4000,
   dbHost: process.env.DB_HOST,
   jwtToken: process.env.JWT_SECRET,
+  originUrl: process.env.ORIGIN_URL,
 };
