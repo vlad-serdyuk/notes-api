@@ -68,7 +68,15 @@ module.exports = {
     }
   },
   getMe: async ({ user }) => {   
-    return await User.findById(user.id);
+    if (!user) {
+      return;
+    }
+    
+    try {
+      return await User.findById(user.id);
+    } catch (err) {
+      throw new Error('Error finding user');
+    }
   },
   getUserByUsername: async ({ username }) => {   
     return await User.findOne({ username });

@@ -32,7 +32,7 @@ module.exports = gql`
     note(id: ID!): Note!
     notes: [Note!]!
     notesFeed(cursor: String): NoteFeed
-    me: User!
+    me: User
     user(username: String!): User!
     users: [User!]!
   }
