@@ -35,6 +35,7 @@ module.exports = gql`
     me: User
     user(username: String!): User!
     users: [User!]!
+    signOut: Boolean!
   }
 
   type Mutation {

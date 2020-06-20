@@ -9,4 +9,6 @@ module.exports = {
   me: (parent, args, { user }) => UserService.getMe({ user }),
   user: (parent, { username }) => UserService.getUserByUsername({ username }),
   users: () => UserService.getUsers(),
+
+  signOut: (parent, args, { meta: { session } }) => UserService.signOut({ session }),
 };

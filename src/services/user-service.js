@@ -58,6 +58,11 @@ module.exports = {
       throw new AuthenticationError('Error singin in');
     }
   },
+  signOut: async ({ session }) => {
+    session.removeToken();
+    
+    return true;
+  },
   getUser: (token) => {
     if (token) {
       try {

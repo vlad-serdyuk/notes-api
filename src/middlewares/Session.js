@@ -22,6 +22,10 @@ class Session {
     
     this.response.cookie('jwt', token, cookieOptions);
   }
+
+  removeToken() {
+    this.response.clearCookie('jwt');
+  }
 }
 
 const sessionMiddleware = function(request, response, next) {  
