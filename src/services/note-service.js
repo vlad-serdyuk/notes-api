@@ -43,7 +43,7 @@ module.exports = {
     }
 
     try {
-      const note = Note.findById(id);
+      const note = await Note.findById(id);
 
       if (note && String(note.author) !== user.id) {
         throw new ForbiddenError('You don\'t have permission to update this note');
