@@ -15,10 +15,10 @@ const noteSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    favoritedBy: {
+    favoritedBy: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+      ref: 'User',
+    }],
   },
   {
     timestamps: true,
