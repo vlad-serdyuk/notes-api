@@ -72,6 +72,27 @@ module.exports = {
       }
     }
   },
+  updateUser: async ({ username, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to update a note');
+    }
+
+    try {
+      const userDbItem = await User.findById(id);
+
+      if (userDbItem && String(userDbItem.id) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to update this note');
+      }
+
+      return await User.findByIdAndUpdate(
+        { _id: id },
+        { $set: { username } },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getMe: async ({ user }) => {   
     if (!user) {
       return;
