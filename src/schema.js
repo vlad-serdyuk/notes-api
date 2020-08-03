@@ -26,6 +26,7 @@ module.exports = gql`
     avatar: String
     notes: [Note!]!
     favorites: [Note!]!
+    createdAt: DateTime!
   }
 
   type Query {
