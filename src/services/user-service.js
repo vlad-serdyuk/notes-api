@@ -78,14 +78,14 @@ module.exports = {
     }
 
     try {
-      const userDbItem = await User.findById(id);
+      const userDbItem = await User.findById(user.id);      
 
       if (userDbItem && String(userDbItem.id) !== user.id) {
         throw new ForbiddenError('You don\'t have permission to update this note');
       }
 
       return await User.findByIdAndUpdate(
-        { _id: id },
+        { _id: user.id },
         { $set: { username } },
         { new: true },
       );
