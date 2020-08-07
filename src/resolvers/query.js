@@ -2,13 +2,14 @@ const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
 
 module.exports = {
-  note: (parent, { id }) => NoteService.getNoteById(id),
+  note: (_, { id }) => NoteService.getNoteById(id),
   notes: () => NoteService.getNotes(),
-  notesFeed: (parent, { cursor }) => NoteService.getNotesFeed({ cursor }),
+  notesFeed: (_, { cursor }) => NoteService.getNotesFeed({ cursor }),
+  trendsNotes: () => NoteService.getTrendsNotes(),
   
-  me: (parent, args, { user }) => UserService.getMe({ user }),
-  user: (parent, { username }) => UserService.getUserByUsername({ username }),
+  me: (_, args, { user }) => UserService.getMe({ user }),
+  user: (_, { username }) => UserService.getUserByUsername({ username }),
   users: () => UserService.getUsers(),
 
-  signOut: (parent, args, { meta: { session } }) => UserService.signOut({ session }),
+  signOut: (_, args, { meta: { session } }) => UserService.signOut({ session }),
 };

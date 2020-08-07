@@ -153,4 +153,7 @@ module.exports = {
       cursor: newCursor,
     };
   },
+  getTrendsNotes: async () => {
+    return await Note.find().sort({ favoriteCount: -1 }).limit(DB_NOTES_LIMIT);
+  },
 };
