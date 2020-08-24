@@ -9,6 +9,7 @@ module.exports = gql`
     author: User!
     favoriteCount: Int!
     favoritedBy: [User!]
+    private: Boolean!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
