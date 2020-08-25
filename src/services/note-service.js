@@ -121,6 +121,27 @@ module.exports = {
       console.log(err);
     }
   },
+  toggleFavorite: async ({ id, private, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to toggle a note');
+    }
+
+    try {
+      const note = await Note.findById(id);
+      
+      if (note && String(note.author) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to update this note');
+      }
+
+      return await Note.findByIdAndUpdate(
+        { _id: id },
+        { $set: { private } },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getNotesByUserId: async ({ id }) => {
     return await Note.find({ author: id }).sort({ _id: -1 });
   },

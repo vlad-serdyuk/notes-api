@@ -7,6 +7,7 @@ module.exports = {
   deleteNote: (parent, { id }, { user }) => NoteService.deleteNote({ id, user }),
 
   toggleFavorite: (parent, { id }, { user }) => NoteService.toggleFavorite({ id, user }),
+  togglePrivacy: (parent, { id, private }, { user }) => NoteService.togglePrivacy({ id, private, user }),
 
   updateUser: (parent, { username }, { user }) => UserService.updateUser({ username, user }),
 
