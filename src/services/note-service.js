@@ -121,7 +121,7 @@ module.exports = {
       console.log(err);
     }
   },
-  toggleFavorite: async ({ id, private, user }) => {
+  togglePrivacy: async ({ id, private, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to toggle a note');
     }
