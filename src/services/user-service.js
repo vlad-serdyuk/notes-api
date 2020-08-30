@@ -50,7 +50,6 @@ module.exports = {
         throw new AuthenticationError('Error singin in 2');
       }
       
-      // TODO: update userPassword
       const token = jwt.sign({ id: user._id }, config.jwtToken);
       session.setToken(token);
 
@@ -112,9 +111,11 @@ module.exports = {
         throw new AuthenticationError('Error singin in 2');
       }
 
+      const hashed = await bcrypt.hash(newPassword, 10);
+
       return await User.findByIdAndUpdate(
         { _id: user.id },
-        { $set: { username } },
+        { $set: { password: hashed } },
         { new: true },
       );
     } catch (err) {
