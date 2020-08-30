@@ -49,7 +49,8 @@ module.exports = {
       if (!isValid) {
         throw new AuthenticationError('Error singin in 2');
       }
-
+      
+      // TODO: update userPassword
       const token = jwt.sign({ id: user._id }, config.jwtToken);
       session.setToken(token);
 
@@ -93,6 +94,34 @@ module.exports = {
       console.log(err);
     }
   },
+  resetPassword: async ({ oldPassword, newPassword, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to update a note');
+    }
+
+    try {
+      const userDbItem = await User.findById(user.id);      
+
+      if (userDbItem && String(userDbItem.id) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to update this note');
+      }
+
+      const isValid = await bcrypt.compare(oldPassword, userDbItem.password);
+
+      if (!isValid) {
+        throw new AuthenticationError('Error singin in 2');
+      }
+
+      return await User.findByIdAndUpdate(
+        { _id: user.id },
+        { $set: { username } },
+        { new: true },
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   getMe: async ({ user }) => {   
     if (!user) {
       return;

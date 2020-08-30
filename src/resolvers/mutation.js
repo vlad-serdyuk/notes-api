@@ -2,15 +2,16 @@ const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
 
 module.exports = {
-  createNote: (parent, { content }, { user }) => NoteService.createNote({ content, user }),
-  updateNote: (parent, { content, id }, { user }) => NoteService.updateNote({ id, content, user }),
-  deleteNote: (parent, { id }, { user }) => NoteService.deleteNote({ id, user }),
+  createNote: (_, { content }, { user }) => NoteService.createNote({ content, user }),
+  updateNote: (_, { content, id }, { user }) => NoteService.updateNote({ id, content, user }),
+  deleteNote: (_, { id }, { user }) => NoteService.deleteNote({ id, user }),
 
-  toggleFavorite: (parent, { id }, { user }) => NoteService.toggleFavorite({ id, user }),
-  togglePrivacy: (parent, { id, private }, { user }) => NoteService.togglePrivacy({ id, private, user }),
+  toggleFavorite: (_, { id }, { user }) => NoteService.toggleFavorite({ id, user }),
+  togglePrivacy: (_, { id, private }, { user }) => NoteService.togglePrivacy({ id, private, user }),
 
-  updateUser: (parent, { username }, { user }) => UserService.updateUser({ username, user }),
+  updateUser: (_, { username }, { user }) => UserService.updateUser({ username, user }),
+  resetPassword: (_, { oldPassword, newPassword }, { user }) => UserService.resetPassword({ oldPassword, newPassword, user }),
 
-  signUp: (parent, { username, email, password }, { meta: { session } }) => UserService.signUp({ username, email, password, session }),
-  signIn: (parent, { email, password }, { meta: { session } }) => UserService.signIn({ email, password, session }),
+  signUp: (_, { username, email, password }, { meta: { session } }) => UserService.signUp({ username, email, password, session }),
+  signIn: (_, { email, password }, { meta: { session } }) => UserService.signIn({ email, password, session }),
 };
