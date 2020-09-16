@@ -148,7 +148,8 @@ module.exports = {
   geFavoritesNotesByUserID: async ({ id }) => {
     return await Note.find({ favoritedBy: id }).sort({ _id: -1 });
   },
-  getNotesFeed: async ({ cursor }) => {
+  // TODO: get private notes only for current user
+  getNotesFeed: async ({ cursor, user }) => {
     let hasNextPage = false;
 
     let cursorQuery = {};
