@@ -152,13 +152,13 @@ module.exports = {
   getNotesFeed: async ({ cursor, user }) => {
     let hasNextPage = false;
 
-    let cursorQuery = {};
+    let findQuery = { private: false };
 
     if (cursor) {
-      cursorQuery = { _id: { $lt: cursor } };
+      findQuery = Object.assign(findQuery, { _id: { $lt: cursor } });
     }
 
-    let notes = await Note.find(cursorQuery)
+    let notes = await Note.find(findQuery)
       .sort({ _id: 1 })
       .limit(DB_NOTES_FEED_LIMIT + 1);
 
@@ -176,6 +176,6 @@ module.exports = {
     };
   },
   getTrendsNotes: async () => {
-    return await Note.find().sort({ favoriteCount: -1 }).limit(DB_NOTES_LIMIT);
+    return await Note.find({ private: false }).sort({ favoriteCount: -1 }).limit(DB_NOTES_LIMIT);
   },
 };
