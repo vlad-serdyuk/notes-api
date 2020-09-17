@@ -148,14 +148,13 @@ module.exports = {
   geFavoritesNotesByUserID: async ({ id }) => {
     return await Note.find({ favoritedBy: id }).sort({ _id: -1 });
   },
-  // TODO: get private notes only for current user
   getNotesFeed: async ({ cursor, user }) => {
     let hasNextPage = false;
 
-    let findQuery = { private: false };
+    let findQuery = {};
 
     if (cursor) {
-      findQuery = Object.assign(findQuery, { _id: { $lt: cursor } });
+      findQuery = { _id: { $lt: cursor } };
     }
 
     let notes = await Note.find(findQuery)
@@ -168,6 +167,14 @@ module.exports = {
     }
 
     const newCursor = notes[notes.length - 1]._id;
+
+    notes = notes.filter((note) => {
+      if (user && String(note.author) === user.id) {
+        return true;
+      }
+  
+      return !note.private;
+    });
 
     return {
       notes,
