@@ -23,7 +23,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createNote: async ({ content, user }) => {
+  createNote: async ({ content, private, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to create a note');
     }
@@ -32,6 +32,7 @@ module.exports = {
       return Note.create({ 
         content,
         author: mongoose.Types.ObjectId(user.id),
+        private,
       });
     } catch (err) {
       console.log(err);
