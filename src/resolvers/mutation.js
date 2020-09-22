@@ -3,7 +3,7 @@ const UserService = require('../services/user-service');
 
 module.exports = {
   createNote: (_, { content, private }, { user }) => NoteService.createNote({ content, private, user }),
-  updateNote: (_, { content, id }, { user }) => NoteService.updateNote({ id, content, user }),
+  updateNote: (_, { content, id, private }, { user }) => NoteService.updateNote({ id, content, private, user }),
   deleteNote: (_, { id }, { user }) => NoteService.deleteNote({ id, user }),
 
   toggleFavorite: (_, { id }, { user }) => NoteService.toggleFavorite({ id, user }),

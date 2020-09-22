@@ -38,7 +38,7 @@ module.exports = {
       console.log(err);
     }
   },
-  updateNote: async ({ id, content, user }) => {
+  updateNote: async ({ id, content, private, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to update a note');
     }
@@ -52,7 +52,7 @@ module.exports = {
 
       return await Note.findByIdAndUpdate(
         { _id: id },
-        { $set: { content } },
+        { $set: { content, private } },
         { new: true },
       );
     } catch (err) {
