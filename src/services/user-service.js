@@ -113,11 +113,13 @@ module.exports = {
 
       const hashed = await bcrypt.hash(newPassword, 10);
 
-      return await User.findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         { _id: user.id },
         { $set: { password: hashed } },
         { new: true },
       );
+
+      return true;
     } catch (err) {
       console.log(err);
     }

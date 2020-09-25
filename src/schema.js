@@ -51,7 +51,7 @@ module.exports = gql`
     togglePrivacy(id: ID!, private: Boolean!): Note!
 
     updateUser(username: String!): User!
-    resetPassword(oldPassword: String!, newPassword: String!): User!
+    resetPassword(oldPassword: String!, newPassword: String!): Boolean!
 
     signUp(username: String!, email: String!, password: String!): Boolean!
     signIn(email: String!, password: String!): Boolean!
