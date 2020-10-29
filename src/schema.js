@@ -35,6 +35,7 @@ module.exports = gql`
     notes: [Note!]!
     notesFeed(cursor: String): NoteFeed
     trendsNotes: [Note!]
+    searchNotes(text: String!): [Note]
 
     me: User
     user(username: String!): User!
