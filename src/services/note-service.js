@@ -186,14 +186,14 @@ module.exports = {
   getTrendsNotes: async () => {
     return await Note.find({ private: false }).sort({ favoriteCount: -1 }).limit(DB_NOTES_LIMIT);
   },
-  searchNotes: async ({ text, user }) => {
-    const matchesPublicNotes = await Note.find({ private: false, content: { '$regex': text } }).limit(DB_NOTES_LIMIT);
+  searchNotes: async ({ text, user }) => {    
+    const matchesPublicNotes = await Note.find({ private: false, content: { $regex: text } }).limit(DB_NOTES_LIMIT);
 
     if (!user) {
       return matchesPublicNotes;
     }
 
-    const matchesPrivateNotes = await Note.find({ author: user.id, private: true, content: { '$regex': text } }).limit(DB_NOTES_LIMIT);
+    const matchesPrivateNotes = await Note.find({ author: user.id, private: true, content: { $regex: text } }).limit(DB_NOTES_LIMIT);
 
     return [...matchesPublicNotes, ...matchesPrivateNotes];
   },
