@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
   {
+    noteId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Note',
+    },
     content: {
       type: String,
       required: true,
@@ -19,20 +23,12 @@ const noteSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     }],
-    private: {
-      type: Boolean,
-      default: false,
-    },
-    comments: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
-    }],
   },
   {
     timestamps: true,
   },
 );
 
-const Note = mongoose.model('Note', noteSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
-module.exports = Note;
+module.exports = Comment;
