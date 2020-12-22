@@ -1,5 +1,6 @@
 const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
+const CommentService = require('../services/comment-service');
 
 module.exports = {
   createNote: (_, { content, private }, { user }) => NoteService.createNote({ content, private, user }),
@@ -11,6 +12,8 @@ module.exports = {
 
   updateUser: (_, { username }, { user }) => UserService.updateUser({ username, user }),
   resetPassword: (_, { oldPassword, newPassword }, { user }) => UserService.resetPassword({ oldPassword, newPassword, user }),
+
+  addComment: (_, { content, noteId }, { user }) => CommentService.addComment({ content, noteId, user }),
 
   signUp: (_, { username, email, password }, { meta: { session } }) => UserService.signUp({ username, email, password, session }),
   signIn: (_, { email, password }, { meta: { session } }) => UserService.signIn({ email, password, session }),

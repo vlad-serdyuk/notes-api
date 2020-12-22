@@ -12,6 +12,7 @@ module.exports = gql`
     private: Boolean!
     createdAt: DateTime!
     updatedAt: DateTime!
+    comments: [Comment]
   }
 
   type NoteFeed {
@@ -27,6 +28,17 @@ module.exports = gql`
     avatar: String
     notes: [Note!]!
     favorites: [Note!]!
+    createdAt: DateTime!
+    comments: [Comment]
+  }
+
+  type Comment {
+    id: ID!
+    noteId: String!
+    content: String!
+    author: User!
+    favoriteCount: Int!
+    favoritedBy: [User!]
     createdAt: DateTime!
   }
 
@@ -53,6 +65,9 @@ module.exports = gql`
 
     updateUser(username: String!): User!
     resetPassword(oldPassword: String!, newPassword: String!): Boolean!
+
+    addComment(content: String!, noteId: String!): Comment!
+    deleteComment(id: ID!): Boolean!
 
     signUp(username: String!, email: String!, password: String!): Boolean!
     signIn(email: String!, password: String!): Boolean!
