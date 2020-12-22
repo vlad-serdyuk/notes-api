@@ -6,7 +6,7 @@ const {
 } = require('apollo-server-express');
 
 const config = require('../config');
-const User = require('../models/user');
+const User = require('../models/User');
 const gravatar = require('../util/gravatar');
 
 module.exports = {

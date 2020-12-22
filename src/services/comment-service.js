@@ -5,7 +5,7 @@ const {
 
 const Comment = require('../models/Comment');
 const Note = require('../models/Note');
-const User = require('../models/user');
+const User = require('../models/User');
 
 module.exports = {
   addComment: async ({ content, noteId, user }) => {
@@ -35,6 +35,28 @@ module.exports = {
       return comment;
     } catch (err) {
       console.log(err);
+    }
+  },
+  deleteComment: async ({ id, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to add a comment');
+    }
+
+    try {
+      const comment = await Comment.findById(id);
+
+      if (comment && String(comment.author) !== user.id) {
+        throw new ForbiddenError('You don\'t have permission to delete this note');
+      }
+
+      await comment.remove();
+      
+      //TODO: add removing from user and notes as well
+
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
     }
   },
 };

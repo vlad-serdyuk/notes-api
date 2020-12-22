@@ -1,5 +1,5 @@
-const Note = require('./note');
-const User = require('./user');
+const Note = require('./Note');
+const User = require('./User');
 const Comment = require('./Comment');
 
 module.exports = {
