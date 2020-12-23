@@ -50,9 +50,19 @@ module.exports = {
         throw new ForbiddenError('You don\'t have permission to delete this note');
       }
 
-      await comment.remove();
+      await Note.findOneAndUpdate(
+        { '_id': mongoose.Types.ObjectId(comment.noteId) }, 
+        { $pull: { "items" : { id } } },
+        { new: true },
+      );
       
-      //TODO: add removing from user and notes as well
+      await User.findOneAndUpdate(
+        { '_id': mongoose.Types.ObjectId(comment.author) }, 
+        { $pull: { "items" : { id } } },
+        { new: true },
+      );
+
+      await comment.remove();
 
       return true;
     } catch (err) {
