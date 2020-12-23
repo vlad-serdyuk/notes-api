@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const {
   AuthenticationError,
   ForbiddenError,
@@ -58,5 +59,8 @@ module.exports = {
       console.log(err);
       return false;
     }
+  },
+  getCommentsByIds: async ({ commentsIds }) => {
+    return await Comment.find({'_id': { $in: commentsIds }});
   },
 };
