@@ -52,6 +52,8 @@ module.exports = gql`
     me: User
     user(username: String!): User!
     users: [User!]!
+    userComments(username: String!): [Comment]
+    
     signOut: Boolean!
   }
 

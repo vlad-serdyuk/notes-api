@@ -73,4 +73,13 @@ module.exports = {
   getCommentsByIds: async ({ commentsIds }) => {
     return await Comment.find({'_id': { $in: commentsIds }});
   },
+  getCommentsByUsername: async ({ username }) => {
+    try {
+      const user = await User.findOne({ username });
+
+      return Comment.find({ 'author': user.id });
+    } catch(err) {
+      console.log(err);
+    }
+  },
 };

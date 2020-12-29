@@ -1,5 +1,6 @@
 const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
+const CommentService = require('../services/comment-service');
 
 module.exports = {
   note: (_, { id }) => NoteService.getNoteById(id),
@@ -11,6 +12,7 @@ module.exports = {
   me: (_, args, { user }) => UserService.getMe({ user }),
   user: (_, { username }) => UserService.getUserByUsername({ username }),
   users: () => UserService.getUsers(),
+  userComments: (_, { username }) => CommentService.getCommentsByUsername({ username }),
 
   signOut: (_, args, { meta: { session } }) => UserService.signOut({ session }),
 };
