@@ -15,6 +15,7 @@ module.exports = {
 
   addComment: (_, { content, noteId }, { user }) => CommentService.addComment({ content, noteId, user }),
   deleteComment: (_, { id }, { user }) => CommentService.deleteComment({ id, user }),
+  toggleFavoriteComment: (_, { id }, { user }) => CommentService.toggleFavorite({ id, user }),
 
   signUp: (_, { username, email, password }, { meta: { session } }) => UserService.signUp({ username, email, password, session }),
   signIn: (_, { email, password }, { meta: { session } }) => UserService.signIn({ email, password, session }),

@@ -70,6 +70,52 @@ module.exports = {
       return false;
     }
   },
+  toggleFavorite: async ({ id, user }) => {
+    if (!user) {
+      throw new AuthenticationError('You must be signed in to toggle a comment');
+    }
+
+    try {
+      const comment = await Comment.findById(id);
+      const hasUser = comment.favoritedBy.indexOf(user.id);
+
+      if (hasUser >= 0) {
+        return await Comment.findByIdAndUpdate(
+          id,
+          {
+            $pull: {
+              favoritedBy: mongoose.Types.ObjectId(user.id)
+            },
+            $inc: {
+              favoriteCount: -1
+            }
+          },
+          {
+            new: true,
+          }
+        );
+      } else {
+        return await Comment.findByIdAndUpdate(
+          id,
+          {
+            $push: {
+              favoritedBy: mongoose.Types.ObjectId(user.id)
+            },
+            $inc: {
+              favoriteCount: 1
+            }
+          },
+          {
+            new: true
+          }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+
   getCommentsByIds: async ({ commentsIds }) => {
     return await Comment.find({'_id': { $in: commentsIds }});
   },
