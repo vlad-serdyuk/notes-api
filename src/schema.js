@@ -70,7 +70,7 @@ module.exports = gql`
 
     addComment(content: String!, noteId: String!): Comment!
     deleteComment(id: ID!): Boolean!
-    toogleFavoriteComment(id: ID!): Comment!
+    toggleFavoriteComment(id: ID!): Comment!
 
     signUp(username: String!, email: String!, password: String!): Boolean!
     signIn(email: String!, password: String!): Boolean!
