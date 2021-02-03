@@ -8,6 +8,8 @@ module.exports = {
   notesFeed: (_, { cursor }, { user }) => NoteService.getNotesFeed({ cursor, user }),
   trendsNotes: () => NoteService.getTrendsNotes(),
   searchNotes: (_, { text }, { user }) => NoteService.searchNotes({ text, user }),
+
+  search: (_, { text }, { user }) => NoteService.search({ text, user }),
   
   me: (_, args, { user }) => UserService.getMe({ user }),
   user: (_, { username }) => UserService.getUserByUsername({ username }),

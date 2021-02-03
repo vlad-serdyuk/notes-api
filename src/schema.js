@@ -42,12 +42,16 @@ module.exports = gql`
     createdAt: DateTime!
   }
 
+  union Entity = Note | Comment | User
+
   type Query {
     note(id: ID!): Note!
     notes: [Note!]!
     notesFeed(cursor: String): NoteFeed
     trendsNotes: [Note!]
     searchNotes(text: String!): [Note]
+
+    search(text: String!): [Entity]
 
     me: User
     user(username: String!): User!
