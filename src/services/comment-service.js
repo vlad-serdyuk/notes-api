@@ -128,4 +128,7 @@ module.exports = {
       console.log(err);
     }
   },
+  searchComments: async ({ text }) => {    
+    return await Comment.find({ content: { $regex: text, $options: 'i' } }).limit(DB_NOTES_LIMIT);
+  },
 };

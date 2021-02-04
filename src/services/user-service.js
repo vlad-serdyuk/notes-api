@@ -148,4 +148,7 @@ module.exports = {
   getAuthorByFavoritedBy: async ({ favoritedBy }) => {
     return await User.find({ _id: { $in: favoritedBy } });
   },
+  searchUsers: async ({ text }) => {    
+    return await User.find({ username: { $regex: text, $options: 'i' } }).limit(DB_NOTES_LIMIT);
+  },
 };
