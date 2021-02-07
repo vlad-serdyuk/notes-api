@@ -9,6 +9,8 @@ const config = require('../config');
 const User = require('../models/User');
 const gravatar = require('../util/gravatar');
 
+const { DB_NOTES_LIMIT } = require('../constants');
+
 module.exports = {
   signUp: async ({ username, email, password, session }) => {
     try {

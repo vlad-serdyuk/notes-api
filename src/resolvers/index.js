@@ -3,6 +3,7 @@ const Mutation = require('./mutation');
 const Note = require('./note');
 const User = require('./user');
 const Comment = require('./comment');
+const Entity = require('./entity');
 const { GraphQLDateTime } = require('graphql-iso-date');
 
 module.exports = {

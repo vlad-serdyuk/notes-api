@@ -8,6 +8,8 @@ const Comment = require('../models/Comment');
 const Note = require('../models/Note');
 const User = require('../models/User');
 
+const { DB_NOTES_LIMIT } = require('../constants');
+
 module.exports = {
   addComment: async ({ content, noteId, user }) => {
     if (!user) {

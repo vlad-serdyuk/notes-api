@@ -1,6 +1,7 @@
 const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
 const CommentService = require('../services/comment-service');
+const CommonService = require('../services/common-service');
 
 module.exports = {
   note: (_, { id }) => NoteService.getNoteById(id),
@@ -9,7 +10,7 @@ module.exports = {
   trendsNotes: () => NoteService.getTrendsNotes(),
   searchNotes: (_, { text }, { user }) => NoteService.searchNotes({ text, user }),
 
-  search: (_, { text }, { user }) => NoteService.search({ text, user }),
+  search: (_, { text }, { user }) => CommonService.search({ text, user }),
   
   me: (_, args, { user }) => UserService.getMe({ user }),
   user: (_, { username }) => UserService.getUserByUsername({ username }),
