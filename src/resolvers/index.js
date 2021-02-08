@@ -12,5 +12,6 @@ module.exports = {
   Note,
   User,
   Comment,
+  Entity,
   DateTime: GraphQLDateTime,
 };
