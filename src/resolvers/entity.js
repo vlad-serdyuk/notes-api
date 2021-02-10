@@ -6,7 +6,7 @@ module.exports = {
     if (obj.username) {
       return 'User';
     }
-    if (obj.private) {
+    if (obj.private !== undefined) {
       return 'Note';
     }
 
