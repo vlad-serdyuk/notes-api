@@ -13,7 +13,7 @@ module.exports = {
   search: (_, { text }, { user }) => CommonService.search({ text, user }),
   
   me: (_, args, { user }) => UserService.getMe({ user }),
-  user: (_, { username }) => UserService.getUserByUsername({ username }),
+  user: (_, { usermatch }) => UserService.getUserByUsermatch({ usermatch }),
   users: () => UserService.getUsers(),
   userComments: (_, { username }) => CommentService.getCommentsByUsername({ username }),
 

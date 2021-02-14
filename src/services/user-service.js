@@ -138,8 +138,19 @@ module.exports = {
       throw new Error('Error finding user');
     }
   },
-  getUserByUsername: async ({ username }) => {   
-    return await User.findOne({ username });
+  getUserByUsermatch: async ({ usermatch }) => {  
+    try {
+      const userByUsername = await User.findOne({ username: usermatch });
+
+      if (userByUsername) {
+        return userByUsername;
+      }
+
+      return await User.findById(usermatch);
+    } catch (err) {
+      console.log('Error finding user');
+      return 'Error finding user';
+    }
   },
   getUsers: async () => {
     return await User.find({});

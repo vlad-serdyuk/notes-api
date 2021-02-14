@@ -54,7 +54,7 @@ module.exports = gql`
     search(text: String!): [Entity]
 
     me: User
-    user(username: String!): User!
+    user(usermatch: String!): User!
     users: [User!]!
     userComments(username: String!): [Comment]
     
