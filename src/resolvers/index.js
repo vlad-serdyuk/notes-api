@@ -4,6 +4,7 @@ const Note = require('./note');
 const User = require('./user');
 const Comment = require('./comment');
 const Entity = require('./entity');
+const Subscription = require('./subscription');
 const { GraphQLDateTime } = require('graphql-iso-date');
 
 module.exports = {
@@ -13,5 +14,6 @@ module.exports = {
   User,
   Comment,
   Entity,
+  // Subscription,
   DateTime: GraphQLDateTime,
 };

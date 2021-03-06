@@ -9,6 +9,7 @@ const { createComplexityLimitRule } = require('graphql-validation-complexity');
 const db = require('./db');
 const config = require('./config');
 const typeDefs = require('./schema');
+const { Query, Mutation } = require('./typeDefs');
 const resolvers = require('./resolvers');
 const sessionMiddleware = require('./middlewares/Session');
 const { GRAPHQL_DEPTH_LIMIT, GRAPGQL_COPLEXITY_LIMIT_RULE } = require('./constants');
@@ -30,13 +31,16 @@ app.use(cookieParser());
 app.use(sessionMiddleware);
 
 const server = new ApolloServer({ 
-  typeDefs,
+  typeDefs: [Query, Mutation, typeDefs],
   resolvers,
   cors: false,
   validationRules: [
     depthLimit(GRAPHQL_DEPTH_LIMIT),
     createComplexityLimitRule(GRAPGQL_COPLEXITY_LIMIT_RULE),
   ],
+  subscriptions: {
+    path: '/subscriptions'
+  },
   context: async ({ req }) => {
     const token = req.session.getToken();    
     const user = UserService.getUser(token);

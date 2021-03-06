@@ -43,40 +43,4 @@ module.exports = gql`
   }
 
   union Entity = Note | Comment | User
-
-  type Query {
-    note(id: ID!): Note!
-    notes: [Note!]!
-    notesFeed(cursor: String): NoteFeed
-    trendsNotes: [Note!]
-    searchNotes(text: String!): [Note]
-
-    search(text: String!): [Entity]
-
-    me: User
-    user(usermatch: String!): User!
-    users: [User!]!
-    userComments(username: String!): [Comment]
-    
-    signOut: Boolean!
-  }
-
-  type Mutation {
-    createNote(content: String!, private: Boolean!): Note!
-    updateNote(id: ID!, content: String!, private: Boolean): Note!
-    deleteNote(id: ID!): Boolean!
-    
-    toggleFavorite(id: ID!): Note!
-    togglePrivacy(id: ID!, private: Boolean!): Note!
-
-    updateUser(username: String!): User!
-    resetPassword(oldPassword: String!, newPassword: String!): Boolean!
-
-    addComment(content: String!, noteId: String!): Comment!
-    deleteComment(id: ID!): Boolean!
-    toggleFavoriteComment(id: ID!): Comment!
-
-    signUp(username: String!, email: String!, password: String!): Boolean!
-    signIn(email: String!, password: String!): Boolean!
-  }
 `;
