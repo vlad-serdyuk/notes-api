@@ -1,9 +1,14 @@
 const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
 const CommentService = require('../services/comment-service');
+const pubsub = require('../services/PubSub');
 
 module.exports = {
-  createNote: (_, { content, private }, { user }) => NoteService.createNote({ content, private, user }),
+  createNote: async (_, { content, private }, { user }) => {
+    const note = await NoteService.createNote({ content, private, user });
+    pubsub.publish('NOTE_CREATED', { notesFeedUpdated: note });
+    return note;
+  },
   updateNote: (_, { content, id, private }, { user }) => NoteService.updateNote({ id, content, private, user }),
   deleteNote: (_, { id }, { user }) => NoteService.deleteNote({ id, user }),
 
