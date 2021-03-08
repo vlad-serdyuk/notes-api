@@ -1,7 +1,7 @@
 const NoteService = require('../services/note-service');
 const UserService = require('../services/user-service');
 const CommentService = require('../services/comment-service');
-const pubsub = require('../services/PubSub');
+const { pubsub } = require('../services/PubSub');
 
 module.exports = {
   createNote: async (_, { content, private }, { user }) => {

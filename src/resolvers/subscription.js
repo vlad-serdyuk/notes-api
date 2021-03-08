@@ -1,5 +1,4 @@
-const NoteService = require('../services/note-service');
-const pubsub = require('../services/PubSub');
+const { pubsub } = require('../services/PubSub');
 
 module.exports = {
   notesFeedUpdated: {
