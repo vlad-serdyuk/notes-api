@@ -1,3 +1,4 @@
+import http from 'http';
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -59,6 +60,14 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/api', cors: false });
 
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
 app.get('/', (req, res) => res.send('Notedly-api'));
 
-app.listen(config.port, () => console.log(`Server running at ${config.port}`));
+app.listen(config.port, () => {
+  httpServer.listen({ port: 8000 }, () => {
+    console.log('Apollo Server ws running on ws://localhost:8000/subscriptions');
+  });
+  console.log(`Server running at ${config.port}`)
+});

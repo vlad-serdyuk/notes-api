@@ -23,7 +23,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createNote: async ({ content, private, user }) => {
+  createNote: async ({ content, private: p, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to create a note');
     }
@@ -32,13 +32,13 @@ module.exports = {
       return Note.create({ 
         content,
         author: mongoose.Types.ObjectId(user.id),
-        private,
+        private: p,
       });
     } catch (err) {
       console.log(err);
     }
   },
-  updateNote: async ({ id, content, private, user }) => {
+  updateNote: async ({ id, content, private: p, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to update a note');
     }
@@ -52,7 +52,7 @@ module.exports = {
 
       return await Note.findByIdAndUpdate(
         { _id: id },
-        { $set: { content, private } },
+        { $set: { content, private: p } },
         { new: true },
       );
     } catch (err) {
@@ -122,7 +122,7 @@ module.exports = {
       console.log(err);
     }
   },
-  togglePrivacy: async ({ id, private, user }) => {
+  togglePrivacy: async ({ id, private: p, user }) => {
     if (!user) {
       throw new AuthenticationError('You must be signed in to toggle a note');
     }
@@ -136,7 +136,7 @@ module.exports = {
 
       return await Note.findByIdAndUpdate(
         { _id: id },
-        { $set: { private } },
+        { $set: { private: p } },
         { new: true },
       );
     } catch (err) {
