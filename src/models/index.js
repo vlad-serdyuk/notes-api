@@ -1,6 +1,6 @@
-const Note = require('./Note');
-const User = require('./User');
-const Comment = require('./Comment');
+import Note from './Note';
+import User from'./User';
+import Comment from './Comment';
 
 module.exports = {
   Note,
